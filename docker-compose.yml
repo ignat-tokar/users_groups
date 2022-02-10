@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+    mongodb:
+        image: mongo:3.6.8
+        container_name: mongodb
+        volumes:
+            - data-node:/data/db
+        ports:
+            - 27017:27017
+        command: mongod --noauth --smallfiles
+    api:
+        container_name: api
+        build:
+            context: ./api/
+            dockerfile: Dockerfile
+        ports:
+            - 5000:5000
+        volumes:
+            - ./api:/api
+            - /api/node_modules
+        depends_on:
+            - mongodb
+    client:
+        container_name: client
+        build:
+            context: ./client/
+            dockerfile: Dockerfile
+        stdin_open: true
+        ports:
+            - 3000:3000
+        volumes:
+            - ./client:/client
+            - /client/node_modules
+
+volumes:
+    data-node:
+        driver: local
