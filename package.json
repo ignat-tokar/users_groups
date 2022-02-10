@@ -1,0 +1,21 @@
+{
+  "name": "users_groups",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "server": "nodemon app.js",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Ignat Tokar",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.0.0",
+    "config": "^3.3.7",
+    "express": "^4.17.2",
+    "mongoose": "^6.2.1",
+    "nodemon": "^2.0.15"
+  }
+}
