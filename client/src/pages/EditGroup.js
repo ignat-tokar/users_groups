@@ -1,6 +1,5 @@
-import {useState, useEffect} from 'react';
-import {NavLink, useNavigate} from 'react-router-dom';
-import useHttp from '../hooks/http.hook';
+import {useState, useEffect, useCallback} from 'react';
+import {NavLink} from 'react-router-dom';
 
 function EditGroup() {
 
@@ -9,26 +8,29 @@ function EditGroup() {
     description: ''
   });
   const groupId = document.location.pathname.split('/t/')[1];
-  const [group, setGroup] = useState(null);
   const [first, setFirst] = useState(true);
-  const {request} = useHttp();
-  const navigate = useNavigate();
 
-  async function getGroupById() {
-    const data = await request('/api/groups');
+  const getGroupById = useCallback (async ()=>{
+    const response = await fetch('/api/groups',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const data = await response.json();
 
     const fetchedGroup = data.filter(group => {
       return group._id === groupId;
     });
     setForm({...fetchedGroup[0]});
-  }
+  },[groupId]);
 
   useEffect(() => {
     if (first) {
       getGroupById();
       setFirst(false);
     }
-  }, []);
+  }, [first, getGroupById]);
 
   function inputHandler(event) {
     setForm({...form, [event.target.name]: [event.target.value]});

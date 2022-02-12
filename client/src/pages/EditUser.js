@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback} from 'react';
 import {NavLink} from 'react-router-dom';
 
 function EditUser() {
@@ -7,18 +7,10 @@ function EditUser() {
     username: ''
   });
   const [update, setUpdate] = useState(true);
-  const [userId, setUserId] = useState(document.location.pathname.split('/t/')[1]);
+  const [userId] = useState(document.location.pathname.split('/t/')[1]);
   const [groups, setGroups] = useState(null);
 
-  useEffect(() => {
-    if (update) {
-      getListOfGroup();
-      getUserForm();
-      setUpdate(false);
-    }
-  }, [update]);
-
-  async function getUserForm() {
+  const getUserForm = useCallback(async ()=>{
     const response = await fetch('/api/users', {
       method: 'GET',
       headers: {
@@ -28,9 +20,9 @@ function EditUser() {
     const data = await response.json();
     const userForm = data.filter(user => user._id === userId);
     setForm({...form, ...userForm[0]});
-  }
+  },[form, userId]);
 
-  async function getListOfGroup() {
+  const getListOfGroup = useCallback(async ()=>{
     const response = await fetch('/api/groups', {
       method: 'GET',
       headers: {
@@ -40,7 +32,15 @@ function EditUser() {
 
     const data = await response.json();
     setGroups(data);
-  }
+  },[]);
+
+  useEffect(() => {
+    if (update) {
+      getListOfGroup();
+      getUserForm();
+      setUpdate(false);
+    }
+  }, [update, getListOfGroup, getUserForm]);
 
   async function saveHandler(event) {
 

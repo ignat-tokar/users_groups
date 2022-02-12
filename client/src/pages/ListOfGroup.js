@@ -1,9 +1,7 @@
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect} from 'react';
 import {NavLink} from 'react-router-dom';
-import useHttp from '../hooks/http.hook';
 
 function ListOfGroup() {
-  const {request} = useHttp();
 
   const [first, setFirst] = useState(true);
   const [groups, setGroups] = useState()
@@ -16,7 +14,13 @@ function ListOfGroup() {
   }, [first]);
 
   async function update() {
-    const fetchedGroups = await request('/api/groups');
+    const response = await fetch('/api/groups',{
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const fetchedGroups = await response.json();
     setGroups(fetchedGroups);
   }
 

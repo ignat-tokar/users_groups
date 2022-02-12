@@ -8,8 +8,6 @@ function CreateGroup() {
     description: ''
   });
 
-  const [groups, setGroups] = useState(null);
-
   function inputHandler(event) {
     setForm({...form, [event.target.name]: [event.target.value]});
   }
@@ -25,9 +23,7 @@ function CreateGroup() {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(response => {
-      console.log(response);
-    }).catch(err => console.log(err));
+    });
   }
 
   return (
@@ -74,12 +70,6 @@ function CreateGroup() {
               to="/groups"
               className="waves-effect waves-light btn-large"
             >Cancel</NavLink>
-            <span>
-              { groups && groups.map(group => {
-                  return group.name;
-                })
-              }
-            </span>
           </div>
         </div>
       </div>

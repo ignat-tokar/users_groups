@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import {NavLink} from 'react-router-dom';
-import ReactDOM from 'react-dom';
 
 function CreateUser() {
 
