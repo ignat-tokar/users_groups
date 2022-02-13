@@ -1,5 +1,4 @@
 # users_groups
-# simple_scheduler
 ## Установка
 **У вас должен быть установлен docker**
 
