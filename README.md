@@ -1,15 +1,15 @@
 # users_groups
-## Установка
-**У вас должен быть установлен docker**
+## Installing
+**You must have be installed docker on your computer**
 
-Скачайте папку проекта и откройте ее в терминале, после введите команду: 
+Dowload directory of the project and put next command in terminal:
 `docker-compose build`
 
-Дождитесь создание образов, после введите команду: 
+Wait for building images and put command below in terminal:
 `docker-compose up`
 
-Дождитесь запуска, после откройте браузер и введите в строку адреса: 
+Wait for launching server, and databes, after open browser and put the next adress in the search field:
 `http://localhost:3000`
 
-## Описание
-Простое приложение, которое позволяет создавать пользователей, группы и добавлять созданных пользователей в группы.
+## Description
+Simple application, that allows you to create users, groups and add created users to groups.
